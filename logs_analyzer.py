@@ -51,6 +51,21 @@ def QueryPopularAuthors(cursor):
 
 def QueryBadDays(cursor):
     # Query: On which days did more than 1% of requests lead to errors?
+    requests_view = '''
+        create or replace view requests
+        as select time::date, count(*) as num_requests
+        from log
+        group by time::date;
+        '''
+    cursor.execute(requests_view)
+    errors_view = '''
+        create or replace view errors
+        as select time::date, count(*) as num_error
+        from log
+        where status != '200 OK'
+        group by time::date;
+        '''
+    cursor.execute(errors_view)
     query = '''
         select time, error_percentage
         from (select requests.time, num_error::float/num_requests
