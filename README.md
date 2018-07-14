@@ -150,7 +150,3 @@ On these days, more than 1% of page requests led to an error:
 
 July 17, 2016 - 2.3% errors
 ```
-
-## License
-
-Log Analyzer is released under the [MIT License](https://opensource.org/licenses/MIT).
